@@ -1,4 +1,5 @@
 import 'package:calendar_schedular/const/colors.dart';
+import 'package:calendar_schedular/util/gap.dart';
 import 'package:flutter/material.dart';
 
 class ScheduleCard extends StatelessWidget {
@@ -32,7 +33,7 @@ class ScheduleCard extends StatelessWidget {
                 startTime: startTime,
                 endTime: endTime,
               ),
-              SizedBox(
+              const Gap(
                 width: 16.0,
               ),
               _Content(

@@ -3,6 +3,7 @@ import 'package:calendar_schedular/component/schedule_bottom_sheet.dart';
 import 'package:calendar_schedular/component/schedule_card.dart';
 import 'package:calendar_schedular/component/today_banner.dart';
 import 'package:calendar_schedular/const/colors.dart';
+import 'package:calendar_schedular/util/gap.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -32,12 +33,12 @@ class _HomeScreenState extends State<HomeScreen> {
               focusedDay: focusedDay,
               onDaySelected: onDaySelected,
             ),
-            const SizedBox(height: 8.0),
+            const Gap(height: 8.0),
             TodayBanner(
               selectedDay: selectedDay,
               scheduleCount: 3,
             ),
-            const SizedBox(height: 8.0),
+            const Gap(height: 8.0),
             _ScheduleList(),
           ],
         ),
@@ -80,7 +81,7 @@ class _ScheduleList extends StatelessWidget {
         child: ListView.separated(
           itemCount: 6,
           separatorBuilder: (context, index) {
-            return const SizedBox(height: 8.0);
+            return const Gap(height: 8.0);
           },
           itemBuilder: (context, index) {
             return ScheduleCard(
