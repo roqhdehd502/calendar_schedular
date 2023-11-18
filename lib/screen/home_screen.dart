@@ -4,6 +4,7 @@ import 'package:calendar_schedular/component/schedule_card.dart';
 import 'package:calendar_schedular/component/today_banner.dart';
 import 'package:calendar_schedular/const/colors.dart';
 import 'package:calendar_schedular/database/drift_database.dart';
+import 'package:calendar_schedular/model/schedule_with_color.dart';
 import 'package:calendar_schedular/util/gap.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -89,10 +90,9 @@ class _ScheduleList extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: StreamBuilder<List<Schedule>>(
+        child: StreamBuilder<List<ScheduleWithColor>>(
           stream: GetIt.I<LocalDatabase>().watchSchedules(selectedDate),
           builder: (context, snapshot) {
-            print(snapshot.data);
             if (!snapshot.hasData) {
               return Center(child: CircularProgressIndicator());
             }
@@ -107,12 +107,17 @@ class _ScheduleList extends StatelessWidget {
                 return const Gap(height: 8.0);
               },
               itemBuilder: (context, index) {
-                final schedule = snapshot.data![index];
+                final scheduleWithColor = snapshot.data![index];
                 return ScheduleCard(
-                  startTime: schedule.startTime,
-                  endTime: schedule.endTime,
-                  content: schedule.content,
-                  color: Colors.red,
+                  startTime: scheduleWithColor.schedule.startTime,
+                  endTime: scheduleWithColor.schedule.endTime,
+                  content: scheduleWithColor.schedule.content,
+                  color: Color(
+                    int.parse(
+                      'FF${scheduleWithColor.categoryColor.hexCode}',
+                      radix: 16,
+                    ),
+                  ),
                 );
               },
             );
