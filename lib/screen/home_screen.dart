@@ -114,14 +114,28 @@ class _ScheduleList extends StatelessWidget {
                     GetIt.I<LocalDatabase>()
                         .removeSchedule(scheduleWithColor.schedule.id);
                   },
-                  child: ScheduleCard(
-                    startTime: scheduleWithColor.schedule.startTime,
-                    endTime: scheduleWithColor.schedule.endTime,
-                    content: scheduleWithColor.schedule.content,
-                    color: Color(
-                      int.parse(
-                        'FF${scheduleWithColor.categoryColor.hexCode}',
-                        radix: 16,
+                  child: GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (_) {
+                          return ScheduleBottomSheet(
+                            scheduleId: scheduleWithColor.schedule.id,
+                            selectedDate: selectedDate,
+                          );
+                        },
+                      );
+                    },
+                    child: ScheduleCard(
+                      startTime: scheduleWithColor.schedule.startTime,
+                      endTime: scheduleWithColor.schedule.endTime,
+                      content: scheduleWithColor.schedule.content,
+                      color: Color(
+                        int.parse(
+                          'FF${scheduleWithColor.categoryColor.hexCode}',
+                          radix: 16,
+                        ),
                       ),
                     ),
                   ),

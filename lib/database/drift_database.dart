@@ -46,6 +46,10 @@ class LocalDatabase extends _$LocalDatabase {
         );
   }
 
+  // 특정 스케쥴 Select
+  Future<Schedule> getScheduleById(int id) =>
+      (select(schedules)..where((tbl) => tbl.id.equals(id))).getSingle();
+
   // 카테고리 컬러 테이블 Select
   Future<List<CategoryColor>> getCategoryColors() =>
       select(categoryColors).get();
@@ -56,6 +60,10 @@ class LocalDatabase extends _$LocalDatabase {
   // 카테고리 컬러 테이블 Insert
   Future<int> createCategoryColor(CategoryColorsCompanion data) =>
       into(categoryColors).insert(data);
+
+  // 스케쥴 테이블 Update
+  Future<int> updateScheduleById(int id, SchedulesCompanion data) =>
+      (update(schedules)..where((tbl) => tbl.id.equals(id))).write(data);
 
   // 스케쥴 테이블 Delete
   Future<int> removeSchedule(int id) =>

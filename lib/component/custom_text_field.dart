@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
+  final String initialValue;
   final bool isTime; // true: 시간, false: 내용
   final FormFieldSetter<String> onSaved;
 
   const CustomTextField({
     required this.label,
+    required this.initialValue,
     required this.isTime,
     required this.onSaved,
     super.key,
@@ -37,6 +39,7 @@ class CustomTextField extends StatelessWidget {
 
   Widget renderTextField() {
     return TextFormField(
+      initialValue: initialValue,
       validator: (String? val) {
         if (val == null || val.isEmpty) {
           return '값을 입력해주세요.';
