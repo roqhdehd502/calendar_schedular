@@ -33,7 +33,7 @@ void main() async {
       theme: ThemeData(
         fontFamily: 'NotoSans',
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(),
     ),
   );
 }

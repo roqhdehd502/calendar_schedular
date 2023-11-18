@@ -15,7 +15,6 @@ class Schedules extends Table {
   // Foreign Key
   IntColumn get colorId => integer()();
   // 생성날짜
-  DateTimeColumn get createdAt => dateTime().clientDefault(
-        () => DateTime.now(),
-      )();
+  DateTimeColumn get createdAt =>
+      dateTime().clientDefault(() => DateTime.now())();
 }

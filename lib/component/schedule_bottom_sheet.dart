@@ -1,7 +1,9 @@
 import 'package:calendar_schedular/component/custom_text_field.dart';
 import 'package:calendar_schedular/const/colors.dart';
 import 'package:calendar_schedular/database/drift_database.dart';
+import 'package:calendar_schedular/util/empty.dart';
 import 'package:calendar_schedular/util/gap.dart';
+import 'package:calendar_schedular/util/loading.dart';
 import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -42,15 +44,13 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
             : GetIt.I<LocalDatabase>().getScheduleById(widget.scheduleId!),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Center(
-              child: Text('스케쥴을 불러올 수 없습니다.'),
+            return const Empty(
+              message: '스케쥴을 불러올 수 없습니다.',
             );
           }
           if (snapshot.connectionState != ConnectionState.none &&
               !snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Loading();
           }
           if (snapshot.hasData && startTime == null) {
             startTime = snapshot.data!.startTime;
@@ -73,7 +73,7 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
                   ),
                   child: Form(
                     key: formKey,
-                    // autovalidateMode: AutovalidateMode.always,
+                    autovalidateMode: AutovalidateMode.always,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

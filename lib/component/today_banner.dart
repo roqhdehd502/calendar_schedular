@@ -14,7 +14,7 @@ class TodayBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
       fontWeight: FontWeight.w600,
       color: Colors.white,
     );
@@ -34,17 +34,18 @@ class TodayBanner extends StatelessWidget {
               style: textStyle,
             ),
             StreamBuilder<List<ScheduleWithColor>>(
-                stream: GetIt.I<LocalDatabase>().watchSchedules(selectedDay),
-                builder: (context, snapshot) {
-                  int count = 0;
-                  if (snapshot.hasData) {
-                    count = snapshot.data!.length;
-                  }
-                  return Text(
-                    '$count개',
-                    style: textStyle,
-                  );
-                }),
+              stream: GetIt.I<LocalDatabase>().watchSchedules(selectedDay),
+              builder: (context, snapshot) {
+                int count = 0;
+                if (snapshot.hasData) {
+                  count = snapshot.data!.length;
+                }
+                return Text(
+                  '$count개',
+                  style: textStyle,
+                );
+              },
+            ),
           ],
         ),
       ),

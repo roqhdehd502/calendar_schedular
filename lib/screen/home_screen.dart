@@ -5,7 +5,9 @@ import 'package:calendar_schedular/component/today_banner.dart';
 import 'package:calendar_schedular/const/colors.dart';
 import 'package:calendar_schedular/database/drift_database.dart';
 import 'package:calendar_schedular/model/schedule_with_color.dart';
+import 'package:calendar_schedular/util/empty.dart';
 import 'package:calendar_schedular/util/gap.dart';
+import 'package:calendar_schedular/util/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -93,11 +95,11 @@ class _ScheduleList extends StatelessWidget {
           stream: GetIt.I<LocalDatabase>().watchSchedules(selectedDate),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return const Center(child: CircularProgressIndicator());
+              return const Loading();
             }
             if (snapshot.hasData && snapshot.data!.isEmpty) {
-              return const Center(
-                child: Text('스케쥴이 없습니다.'),
+              return const Empty(
+                message: '스케쥴이 없습니다.',
               );
             }
             return ListView.separated(

@@ -39,7 +39,7 @@ class ScheduleCard extends StatelessWidget {
               _Content(
                 content: content,
               ),
-              SizedBox(
+              const Gap(
                 width: 16.0,
               ),
               _Category(
@@ -65,7 +65,7 @@ class _Time extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
       fontWeight: FontWeight.w600,
       color: PRIMARY_COLOR,
       fontSize: 16.0,
