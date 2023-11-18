@@ -24,6 +24,8 @@ class LocalDatabase extends _$LocalDatabase {
   @override
   int get schemaVersion => 1;
 
+  // 스케쥴 목록 Select (업데이트 된 값을 불러와야 하므로 Stream, watch 사용)
+  Stream<List<Schedule>> watchSchedules() => select(schedules).watch();
   // 카테고리 컬러 테이블 Select
   Future<List<CategoryColor>> getCategoryColors() =>
       select(categoryColors).get();

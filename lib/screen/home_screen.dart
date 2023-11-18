@@ -3,8 +3,10 @@ import 'package:calendar_schedular/component/schedule_bottom_sheet.dart';
 import 'package:calendar_schedular/component/schedule_card.dart';
 import 'package:calendar_schedular/component/today_banner.dart';
 import 'package:calendar_schedular/const/colors.dart';
+import 'package:calendar_schedular/database/drift_database.dart';
 import 'package:calendar_schedular/util/gap.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -80,20 +82,26 @@ class _ScheduleList extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: ListView.separated(
-          itemCount: 6,
-          separatorBuilder: (context, index) {
-            return const Gap(height: 8.0);
-          },
-          itemBuilder: (context, index) {
-            return ScheduleCard(
-              startTime: 8,
-              endTime: 14,
-              content: '프로그래밍 공부하기',
-              color: Colors.red,
-            );
-          },
-        ),
+        child: StreamBuilder<List<Schedule>>(
+            stream: GetIt.I<LocalDatabase>().watchSchedules(),
+            builder: (context, snapshot) {
+              print(snapshot.data);
+
+              return ListView.separated(
+                itemCount: 6,
+                separatorBuilder: (context, index) {
+                  return const Gap(height: 8.0);
+                },
+                itemBuilder: (context, index) {
+                  return ScheduleCard(
+                    startTime: 8,
+                    endTime: 14,
+                    content: '프로그래밍 공부하기',
+                    color: Colors.red,
+                  );
+                },
+              );
+            }),
       ),
     );
   }
