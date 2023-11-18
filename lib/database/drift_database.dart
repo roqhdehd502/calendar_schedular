@@ -56,6 +56,10 @@ class LocalDatabase extends _$LocalDatabase {
   // 카테고리 컬러 테이블 Insert
   Future<int> createCategoryColor(CategoryColorsCompanion data) =>
       into(categoryColors).insert(data);
+
+  // 스케쥴 테이블 Delete
+  Future<int> removeSchedule(int id) =>
+      (delete(schedules)..where((tbl) => tbl.id.equals(id))).go();
 }
 
 // DB 연결 설정

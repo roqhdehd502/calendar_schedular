@@ -87,9 +87,7 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
                       },
                     ),
                     const Gap(width: 8.0),
-                    _SaveButton(
-                      onPressed: onSavePressed,
-                    ),
+                    _SaveButton(onPressed: onSavePressed),
                   ],
                 ),
               ),
@@ -107,15 +105,13 @@ class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      final key =
-          await GetIt.I<LocalDatabase>().createSchedule(SchedulesCompanion(
+      await GetIt.I<LocalDatabase>().createSchedule(SchedulesCompanion(
         colorId: Value(selectedColorId!),
         content: Value(content!),
         date: Value(widget.selectedDate),
         startTime: Value(startTime!),
         endTime: Value(endTime!),
       ));
-
       Navigator.of(context).pop();
     } else {
       print('SAVE FAILED!');

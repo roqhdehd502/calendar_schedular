@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       },
       backgroundColor: PRIMARY_COLOR,
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
     );
   }
 
@@ -93,10 +93,10 @@ class _ScheduleList extends StatelessWidget {
           stream: GetIt.I<LocalDatabase>().watchSchedules(selectedDate),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.hasData && snapshot.data!.isEmpty) {
-              return Center(
+              return const Center(
                 child: Text('스케쥴이 없습니다.'),
               );
             }
@@ -107,14 +107,22 @@ class _ScheduleList extends StatelessWidget {
               },
               itemBuilder: (context, index) {
                 final scheduleWithColor = snapshot.data![index];
-                return ScheduleCard(
-                  startTime: scheduleWithColor.schedule.startTime,
-                  endTime: scheduleWithColor.schedule.endTime,
-                  content: scheduleWithColor.schedule.content,
-                  color: Color(
-                    int.parse(
-                      'FF${scheduleWithColor.categoryColor.hexCode}',
-                      radix: 16,
+                return Dismissible(
+                  key: ObjectKey(scheduleWithColor.schedule.id),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (DismissDirection direction) {
+                    GetIt.I<LocalDatabase>()
+                        .removeSchedule(scheduleWithColor.schedule.id);
+                  },
+                  child: ScheduleCard(
+                    startTime: scheduleWithColor.schedule.startTime,
+                    endTime: scheduleWithColor.schedule.endTime,
+                    content: scheduleWithColor.schedule.content,
+                    color: Color(
+                      int.parse(
+                        'FF${scheduleWithColor.categoryColor.hexCode}',
+                        radix: 16,
+                      ),
                     ),
                   ),
                 );
