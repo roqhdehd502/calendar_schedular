@@ -4,8 +4,7 @@ import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
-  // true: 시간, false: 내용
-  final bool isTime;
+  final bool isTime; // true: 시간, false: 내용
 
   const CustomTextField({
     required this.label,
@@ -35,7 +34,14 @@ class CustomTextField extends StatelessWidget {
   }
 
   Widget renderTextField() {
-    return TextField(
+    return TextFormField(
+      validator: (String? val) {
+        if (val == null || val.isEmpty) {
+          return '값을 입력해주세요.';
+        }
+
+        return null;
+      },
       cursorColor: Colors.grey,
       maxLines: isTime ? 1 : null,
       expands: !isTime,

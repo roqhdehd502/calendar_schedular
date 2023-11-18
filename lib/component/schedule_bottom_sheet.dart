@@ -3,8 +3,15 @@ import 'package:calendar_schedular/const/colors.dart';
 import 'package:calendar_schedular/util/gap.dart';
 import 'package:flutter/material.dart';
 
-class ScheduleBottomSheet extends StatelessWidget {
+class ScheduleBottomSheet extends StatefulWidget {
   const ScheduleBottomSheet({super.key});
+
+  @override
+  State<ScheduleBottomSheet> createState() => _ScheduleBottomSheetState();
+}
+
+class _ScheduleBottomSheetState extends State<ScheduleBottomSheet> {
+  final GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +28,13 @@ class ScheduleBottomSheet extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.only(bottom: bottomInset),
             child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 8.0,
-                  right: 8.0,
-                  top: 16.0,
-                ),
+              padding: const EdgeInsets.only(
+                left: 8.0,
+                right: 8.0,
+                top: 16.0,
+              ),
+              child: Form(
+                key: formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -35,13 +44,25 @@ class ScheduleBottomSheet extends StatelessWidget {
                     const Gap(height: 16.0),
                     _ColorPicker(),
                     const Gap(width: 8.0),
-                    _SaveButton(),
+                    _SaveButton(
+                      onPressed: onSavePressed,
+                    ),
                   ],
-                )),
+                ),
+              ),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  void onSavePressed() {
+    if (formKey.currentState == null) {
+      return;
+    }
+
+    if (formKey.currentState!.validate()) {}
   }
 }
 
@@ -117,7 +138,12 @@ class _ColorPicker extends StatelessWidget {
 }
 
 class _SaveButton extends StatelessWidget {
-  const _SaveButton({super.key});
+  final VoidCallback onPressed;
+
+  const _SaveButton({
+    required this.onPressed,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -125,7 +151,7 @@ class _SaveButton extends StatelessWidget {
       children: [
         Expanded(
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: PRIMARY_COLOR,
             ),
