@@ -85,20 +85,28 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: NotoSans
+    - family: GyeonggiCheonnyeon
       fonts:
-        - asset: asset/font/NotoSansKR-Black.otf
-          weight: 900
-        - asset: asset/font/NotoSansKR-Bold.otf
+        - asset: asset/font/GyeonggiCheonnyeon-Bold.otf
           weight: 700
-        - asset: asset/font/NotoSansKR-Medium.otf
+        - asset: asset/font/GyeonggiCheonnyeon-Medium.otf
           weight: 500
-        - asset: asset/font/NotoSansKR-Regular.otf
-          weight: 400
-        - asset: asset/font/NotoSansKR-Light.otf
+        - asset: asset/font/GyeonggiCheonnyeon-Light.otf
           weight: 300
-        - asset: asset/font/NotoSansKR-Thin.otf
-          weight: 100
+#    - family: NotoSans
+#      fonts:
+#        - asset: asset/font/NotoSansKR-Black.otf
+#          weight: 900
+#        - asset: asset/font/NotoSansKR-Bold.otf
+#          weight: 700
+#        - asset: asset/font/NotoSansKR-Medium.otf
+#          weight: 500
+#        - asset: asset/font/NotoSansKR-Regular.otf
+#          weight: 400
+#        - asset: asset/font/NotoSansKR-Light.otf
+#          weight: 300
+#        - asset: asset/font/NotoSansKR-Thin.otf
+#          weight: 100
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

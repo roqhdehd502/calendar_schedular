@@ -31,7 +31,8 @@ void main() async {
   runApp(
     MaterialApp(
       theme: ThemeData(
-        fontFamily: 'NotoSans',
+        fontFamily: 'GyeonggiCheonnyeon',
+        // fontFamily: 'NotoSans',
       ),
       home: const HomeScreen(),
     ),
