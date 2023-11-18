@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  DateTime selectedDay = DateTime(
+  DateTime selectedDay = DateTime.utc(
     DateTime.now().year,
     DateTime.now().month,
     DateTime.now().day,
@@ -41,7 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
               scheduleCount: 3,
             ),
             const Gap(height: 8.0),
-            _ScheduleList(),
+            _ScheduleList(
+              selectedDate: selectedDay,
+            ),
           ],
         ),
       ),
@@ -75,7 +77,12 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class _ScheduleList extends StatelessWidget {
-  const _ScheduleList({super.key});
+  final DateTime selectedDate;
+
+  const _ScheduleList({
+    required this.selectedDate,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -83,25 +90,34 @@ class _ScheduleList extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: StreamBuilder<List<Schedule>>(
-            stream: GetIt.I<LocalDatabase>().watchSchedules(),
-            builder: (context, snapshot) {
-              print(snapshot.data);
+          stream: GetIt.I<LocalDatabase>().watchSchedules(),
+          builder: (context, snapshot) {
+            print(snapshot.data);
 
-              return ListView.separated(
-                itemCount: 6,
-                separatorBuilder: (context, index) {
-                  return const Gap(height: 8.0);
-                },
-                itemBuilder: (context, index) {
-                  return ScheduleCard(
-                    startTime: 8,
-                    endTime: 14,
-                    content: '프로그래밍 공부하기',
-                    color: Colors.red,
-                  );
-                },
-              );
-            }),
+            List<Schedule> schedules = [];
+
+            if (snapshot.hasData) {
+              schedules = snapshot.data!
+                  .where((element) => element.date == selectedDate)
+                  .toList();
+            }
+
+            return ListView.separated(
+              itemCount: 6,
+              separatorBuilder: (context, index) {
+                return const Gap(height: 8.0);
+              },
+              itemBuilder: (context, index) {
+                return ScheduleCard(
+                  startTime: 8,
+                  endTime: 14,
+                  content: '프로그래밍 공부하기',
+                  color: Colors.red,
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
